@@ -1,7 +1,7 @@
 # rfm9x_remote_switch
 send switch status via LoRa
 
-There are two version of the transmit and receive programs. The first (alarm_rfm9x_ack.py and rfmnx_rpi_receive.py) sends an Ascii string with some words and data. The second (alarm_rfm9x_ack_bytes.py and rfmnx_rpi_receive_bytes.py) just sends a byte array containing the data vaules. I like the second method because it is much easier to decode the data on the receiving side wthout having to parse the Ascii string.
+There are two version of the transmit and receive programs. The first (alarm_rfm9x_ack.py and rfmnx_rpi_receive.py) sends an Ascii string with some words and data. The second (alarm_rfm9x_ack_bytes.py and rfm9x_rpi_receive_bytes.py) just send a byte array containing the data vaules. I like the second method because the packets are much smaller and it is much easier to decode the data on the receiving side wthout having to parse the Ascii string.
 
 
 **files:**
