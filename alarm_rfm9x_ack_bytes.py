@@ -51,10 +51,19 @@ rfm9x.tx_power = 23
 
 # send a mesage as long as the pin is low
 alarm.sleep_memory[1] = 0
+
+byte_packet = bytearray(10)
 while not pin.value:
-    voltage = sensor.cell_voltage
-    cell_level = sensor.cell_percent
-    if not rfm9x.send_with_ack(bytes("Alarm Triggered: count {} {} {} battery {:.3f}V level {:.1f}%".format(alarm.sleep_memory[0],alarm.sleep_memory[1],alarm.sleep_memory[2],voltage,cell_level), "UTF-8")):
+    voltage = int(sensor.cell_voltage*1000)
+    cell_level = int(sensor.cell_percent)
+    byte_packet[0] = alarm.sleep_memory[0]
+    byte_packet[1] = alarm.sleep_memory[1]
+    byte_packet[2] = alarm.sleep_memory[2]
+    byte_packet[3] = voltage&0xff
+    byte_packet[4] = (voltage>>8)&0xff
+    byte_packet[5] = cell_level&0xff
+
+    if not rfm9x.send_with_ack(bytes(byte_packet)):
         alarm.sleep_memory[2] += 1
         print("No Ack")
     time.sleep(3.)
