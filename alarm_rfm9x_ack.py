@@ -53,7 +53,8 @@ rfm9x.tx_power = 23
 alarm.sleep_memory[1] = 0
 while not pin.value:
     voltage = sensor.cell_voltage
-    if not rfm9x.send_with_ack(bytes("I'm awake (feathers2): count {} {} {} battery {}V".format(alarm.sleep_memory[0],alarm.sleep_memory[1],alarm.sleep_memory[2],voltage), "UTF-8")):
+    cell_level = sensor.cell_percent
+    if not rfm9x.send_with_ack(bytes("Alarm Triggered: count {} {} {} battery {:.3f}V level {:.1f}%%".format(alarm.sleep_memory[0],alarm.sleep_memory[1],alarm.sleep_memory[2],voltage,cell_level), "UTF-8")):
         alarm.sleep_memory[2] += 1
         print("No Ack")
     time.sleep(3.)
