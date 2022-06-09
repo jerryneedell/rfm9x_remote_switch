@@ -1,5 +1,4 @@
 import alarm
-import alarm.pin
 import time
 import board
 import digitalio
